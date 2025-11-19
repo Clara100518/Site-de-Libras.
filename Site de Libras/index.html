@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo dos Sinais - Aprenda Libras de Forma Interativa</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 0.8rem;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section {
+            display: none;
+            margin-bottom: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .card {
+            background-color: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2980b9;
+        }
+        
+        .alphabet-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .letter-card {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+        
+        .letter-card:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary);
+        }
+        
+        .letter-sign {
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+        
+        .game-container {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .game-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .game-option {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .game-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .game-option.selected {
+            border-color: var(--success);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        
+        .game-option.wrong {
+            border-color: var(--accent);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .sign-display {
+            font-size: 5rem;
+            margin: 1rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .score-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--success);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--accent);
+            display: block;
+        }
+        
+        /* Estilos para o jogo da memória */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .memory-card {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+            background-color: var(--secondary);
+        }
+        
+        .memory-card.matched {
+            background-color: var(--success);
+            cursor: default;
+        }
+        
+        .memory-card .front, .memory-card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        
+        .memory-card .front {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .memory-card .back {
+            background-color: var(--secondary);
+            transform: rotateY(180deg);
+        }
+        
+        .memory-stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 1rem;
+        }
+        
+        /* Estilos para a imagem do alfabeto */
+        .alphabet-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem 0;
+        }
+        
+        .alphabet-reference {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icon:hover {
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .letter-card {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .memory-card {
+                width: 80px;
+                height: 80px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="logo-icon">👐</span>
+            <h1>Mundo dos Sinais</h1>
+        </div>
+        <p>Aprenda Libras de forma interativa e divertida</p>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" data-section="home">Início</button>
+            <button class="nav-btn" data-section="about">Sobre Libras</button>
+            <button class="nav-btn" data-section="alphabet">Alfabeto</button>
+            <button class="nav-btn" data-section="dictionary">Dicionário</button>
+            <button class="nav-btn" data-section="games">Jogos</button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- Seção Início -->
+        <section id="home" class="section active">
+            <h2>Bem-vindo ao Mundo dos Sinais</h2>
+            <p>Este é um espaço dedicado ao aprendizado da Língua Brasileira de Sinais (Libras) de forma interativa e acessível. Explore nossos recursos educativos, jogos e ferramentas para aprender Libras.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Alfabeto Manual</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Aprenda o alfabeto digital em Libras, essencial para soletrar nomes e palavras.</p>
+                        <button class="btn" data-section="alphabet">Aprender Alfabeto</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Jogos Educativos</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Teste seus conhecimentos com nossos jogos interativos sobre linguagem de sinais.</p>
+                        <button class="btn" data-section="games">Ver Jogos</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Dicionário de Sinais</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Consulte nosso dicionário com sinais básicos organizados por categorias.</p>
+                        <button class="btn" data-section="dictionary">Explorar Dicionário</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Sobre Libras -->
+        <section id="about" class="section">
+            <h2>Sobre a Língua Brasileira de Sinais (Libras)</h2>
+            <p>A Língua Brasileira de Sinais (Libras) é a língua de sinais utilizada pela maioria dos surdos dos centros urbanos brasileiros e reconhecida pela Lei nº 10.436, de 24 de abril de 2002.</p>
+            
+            <h3>Características da Libras</h3>
+            <ul>
+                <li>É uma língua visual-espacial, com estrutura gramatical própria</li>
+                <li>Não é universal - cada país tem sua própria língua de sinais</li>
+                <li>Utiliza expressões faciais e corporais como parte da linguagem</li>
+                <li>Tem vocabulário e gramática distintos do português</li>
+            </ul>
+            
+            <h3>Importância da Libras</h3>
+            <p>A Libras é fundamental para a inclusão social da comunidade surda, permitindo acesso à educação, cultura, trabalho e serviços. Aprender Libras beneficia não apenas surdos, mas também ouvintes que desejam se comunicar com essa comunidade.</p>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Curiosidades sobre Libras</h3>
+                </div>
+                <div class="card-content">
+                    <p>Assim como as línguas orais, as línguas de sinais evoluem, têm regionalismos, gírias e mudam com o tempo. A Libras tem influência da Língua de Sinais Francesa, trazida ao Brasil no século XIX.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Alfabeto -->
+        <section id="alphabet" class="section">
+            <h2>Alfabeto Manual em Libras</h2>
+            <p>Clique em cada letra para ver o sinal correspondente e pratique o alfabeto digital.</p>
+            
+            <div class="alphabet-container">
+                <!-- Letras serão geradas via JavaScript -->
+            </div>
+            
+            <div class="game-container">
+                <h3>Praticar Alfabeto</h3>
+                <div class="sign-display" id="current-sign">👐</div>
+                <p id="sign-description">Selecione uma letra para ver o sinal correspondente</p>
+            </div>
+            
+            <div class="alphabet-reference">
+                <h3>Referência Completa do Alfabeto de Libras</h3>
+                <img src="https://www.handtalk.me/br/wp-content/uploads/sites/8/2023/02/ALFABETO-LIBRAS-1024x594.png" alt="Alfabeto completo de Libras" class="alphabet-image">
+                <p>Referência: Hand Talk</p>
+            </div>
+        </section>
+        
+        <!-- Seção Dicionário -->
+        <section id="dictionary" class="section">
+            <h2>Dicionário de Sinais Básicos</h2>
+            <p>Explore sinais básicos organizados por categorias.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Saudações</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Olá, bom dia, boa tarde, boa noite, tchau, como vai?</p>
+                        <button class="btn btn-secondary" data-category="saudacoes">Ver Sinais</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Família</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Pai, mãe, irmão, irmã, avô, avó, filho, filha</p>
+                        <button class="btn btn-secondary" data-category="familia">Ver Sinais</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Cores</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Vermelho, azul, verde, amarelo, preto, branco, roxo</p>
+                        <button class="btn btn-secondary" data-category="cores">Ver Sinais</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Alimentos</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Água, pão, arroz, feijão, carne, fruta, verdura</p>
+                        <button class="btn btn-secondary" data-category="alimentos">Ver Sinais</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="dictionary-content" class="game-container" style="display: none;">
+                <h3 id="category-title">Categoria</h3>
+                <div id="category-items">
+                    <!-- Conteúdo será carregado via JavaScript -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Jogos -->
+        <section id="games" class="section">
+            <h2>Jogos Educativos de Libras</h2>
+            <p>Teste seus conhecimentos com nossos jogos interativos.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Quiz de Sinais</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Responda perguntas sobre sinais em Libras e teste seu conhecimento.</p>
+                        <button class="btn" data-game="quiz">Jogar Quiz</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Memória de Sinais</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Encontre os pares correspondentes entre sinais e suas representações.</p>
+                        <button class="btn" data-game="memory">Jogar Memória</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Adivinhe o Sinal</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Veja o sinal e adivinhe qual palavra ele representa.</p>
+                        <button class="btn" data-game="guess">Jogar Adivinhe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="game-area" class="game-container" style="display: none;">
+                <h3 id="game-title">Jogo</h3>
+                <div class="score-container">
+                    <div>Pontuação: <span id="score">0</span></div>
+                    <div>Pergunta: <span id="question-count">0</span>/<span id="total-questions">0</span></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="game-progress"></div>
+                </div>
+                
+                <div class="game-area">
+                    <div id="game-content">
+                        <!-- Conteúdo do jogo será carregado via JavaScript -->
+                    </div>
+                    <button id="next-btn" class="btn" style="display: none;">Próxima</button>
+                    <div id="game-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <p>Mundo dos Sinais &copy; 2023 - Todos os direitos reservados</p>
+            <p>Desenvolvido para promover a inclusão e acessibilidade</p>
+            <div class="social-links">
+                <a href="#" class="social-icon">📘</a>
+                <a href="#" class="social-icon">📷</a>
+                <a href="#" class="social-icon">🐦</a>
+                <a href="#" class="social-icon">📺</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navegação entre seções
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remover classe active de todos os botões
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Adicionar classe active ao botão clicado
+                this.classList.add('active');
+                
+                // Esconder todas as seções
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar a seção correspondente
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Se for a seção de jogos, inicializar a área de jogos
+                if (sectionId === 'games') {
+                    document.getElementById('game-area').style.display = 'none';
+                }
+            });
+        });
+        
+        // Botões que levam a outras seções
+        document.querySelectorAll('[data-section]').forEach(button => {
+            button.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                
+                // Atualizar navegação
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-section') === sectionId) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Esconder todas as seções
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar a seção correspondente
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+        
+        // Alfabeto em Libras - SINAIS CORRIGIDOS
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        const alphabetContainer = document.querySelector('.alphabet-container');
+        const currentSign = document.getElementById('current-sign');
+        const signDescription = document.getElementById('sign-description');
+        
+        // Gerar cartões de letras
+        alphabet.forEach(letter => {
+            const letterCard = document.createElement('div');
+            letterCard.className = 'letter-card';
+            letterCard.innerHTML = `
+                <div>${letter}</div>
+                <div class="letter-sign">${getHandSymbol(letter)}</div>
+            `;
+            letterCard.addEventListener('click', () => showSign(letter));
+            alphabetContainer.appendChild(letterCard);
+        });
+        
+        // Mostrar sinal da letra selecionada
+        function showSign(letter) {
+            currentSign.textContent = getHandSymbol(letter);
+            signDescription.textContent = `Esta é a letra ${letter} em Libras. Pratique fazendo este gesto com suas mãos.`;
+        }
+        
+        // Função auxiliar para gerar símbolos de mão - SINAIS CORRIGIDOS
+        function getHandSymbol(letter) {
+            const symbols = {
+                'A': '✊',  // Punho fechado
+                'B': '✋',  // Mão aberta, palma para frente
+                'C': '🤏', // Mão em forma de C
+                'D': '👉', // Dedo indicador apontando
+                'E': '✌️', // Mão em forma de E (dedos juntos)
+                'F': '🤟', // Mão em forma de F (polegar e indicador formando círculo)
+                'G': '👆', // Dedo indicador apontando para cima
+                'H': '🤙', // Polegar e mindinho estendidos
+                'I': '👍', // Polegar para cima (dedo mínimo estendido)
+                'J': '👈', // Dedo indicador fazendo movimento de J
+                'K': '✌️', // Indicador e médio estendidos, polegar cruzado
+                'L': '🤘', // Indicador e polegar formando L
+                'M': '✊', // Três dedos dobrados sobre a palma
+                'N': '✌️', // Dois dedos dobrados sobre a palma
+                'O': '👌', // Forma de O com os dedos
+                'P': '👇', // Dedo indicador apontando para baixo
+                'Q': '🤏', // Polegar e indicador formando Q
+                'R': '✌️', // Dedo médio cruzado sobre o indicador
+                'S': '✊', // Punho fechado com polegar sobre os dedos
+                'T': '👆', // Polegar entre indicador e médio
+                'U': '✌️', // Indicador e médio juntos para cima
+                'V': '✌️', // Indicador e médio em V
+                'W': '🤞', // Três dedos estendidos
+                'X': '👉', // Dedo indicador dobrado
+                'Y': '👍', // Polegar e mindinho estendidos
+                'Z': '👈'  // Dedo indicador desenhando Z no ar
+            };
+            return symbols[letter] || '👐';
+        }
+        
+        // Dicionário de sinais - SINAIS CORRIGIDOS
+        const dictionary = {
+            saudacoes: [
+                { word: 'Olá', sign: '👋', description: 'Acene com a mão como um cumprimento' },
+                { word: 'Bom dia', sign: '☀️', description: 'Mão plana movendo-se do queixo para frente' },
+                { word: 'Boa tarde', sign: '🌞', description: 'Mão plana movendo-se horizontalmente na altura do peito' },
+                { word: 'Boa noite', sign: '🌙', description: 'Mão plana movendo-se do queixo para baixo' },
+                { word: 'Tchau', sign: '👋', description: 'Acene com a mão como despedida' },
+                { word: 'Como vai?', sign: '🤔', description: 'Mão com dedos juntos movendo-se para frente' }
+            ],
+            familia: [
+                { word: 'Pai', sign: '👨', description: 'Polegar na testa representando o pai' },
+                { word: 'Mãe', sign: '👩', description: 'Polegar no queixo representando a mãe' },
+                { word: 'Irmão', sign: '👬', description: 'Dedos indicadores se encontrando no lado da testa' },
+                { word: 'Irmã', description: 'Dedos indicadores se encontrando no lado do queixo' },
+                { word: 'Avô', sign: '👴', description: 'Mão em forma de "G" tocando a testa duas vezes' },
+                { word: 'Avó', sign: '👵', description: 'Mão em forma de "G" tocando o queixo duas vezes' },
+                { word: 'Filho', sign: '👶', description: 'Mão plana movendo-se da testa para baixo' },
+                { word: 'Filha', description: 'Mão plana movendo-se do queixo para baixo' }
+            ],
+            cores: [
+                { word: 'Vermelho', sign: '🔴', description: 'Dedo indicador tocando os lábios' },
+                { word: 'Azul', sign: '🔵', description: 'Dedos da mão direita deslizando na mão esquerda' },
+                { word: 'Verde', sign: '🟢', description: 'Mão com dedos abertos balançando' },
+                { word: 'Amarelo', sign: '🟡', description: 'Mão em forma de "Y" balançando' },
+                { word: 'Preto', sign: '⚫', description: 'Dedo indicador deslizando na sobrancelha' },
+                { word: 'Branco', sign: '⚪', description: 'Mão aberta movendo-se do peito para frente' },
+                { word: 'Roxo', sign: '🟣', description: 'Mão em forma de "P" balançando' }
+            ],
+            alimentos: [
+                { word: 'Água', sign: '💧', description: 'Dedo indicador tocando o queixo' },
+                { word: 'Pão', sign: '🍞', description: 'Mãos simulando cortar pão' },
+                { word: 'Arroz', sign: '🍚', description: 'Mão simulando levar comida à boca' },
+                { word: 'Feijão', sign: '🥣', description: 'Mão simulando mexer uma panela' },
+                { word: 'Carne', sign: '🍖', description: 'Polegar e indicador apertando a carne' },
+                { word: 'Fruta', sign: '🍎', description: 'Mão em concha torcendo no queixo' },
+                { word: 'Verdura', sign: '🥬', description: 'Mãos abertas movendo-se para os lados' }
+            ]
+        };
+        
+        // Mostrar conteúdo do dicionário
+        document.querySelectorAll('[data-category]').forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                showDictionaryCategory(category);
+            });
+        });
+        
+        function showDictionaryCategory(category) {
+            const dictionaryContent = document.getElementById('dictionary-content');
+            const categoryTitle = document.getElementById('category-title');
+            const categoryItems = document.getElementById('category-items');
+            
+            categoryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            
+            // Limpar conteúdo anterior
+            categoryItems.innerHTML = '';
+            
+            // Adicionar itens da categoria
+            dictionary[category].forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.style.marginBottom = '1.5rem';
+                itemElement.style.padding = '1rem';
+                itemElement.style.backgroundColor = 'white';
+                itemElement.style.borderRadius = '8px';
+                itemElement.style.textAlign = 'left';
+                
+                itemElement.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                        <div style="font-size: 2.5rem;">${item.sign || '👐'}</div>
+                        <h4 style="margin: 0;">${item.word}</h4>
+                    </div>
+                    <p style="margin: 0;">${item.description}</p>
+                `;
+                
+                categoryItems.appendChild(itemElement);
+            });
+            
+            // Mostrar a seção
+            dictionaryContent.style.display = 'block';
+            
+            // Rolar suavemente para a seção
+            dictionaryContent.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Sistema de Jogos
+        let currentGame = null;
+        let score = 0;
+        let currentQuestion = 0;
+        let selectedOption = null;
+        
+        // Dados dos jogos - PERGUNTAS CORRIGIDAS
+        const games = {
+            quiz: {
+                title: "Quiz de Libras",
+                questions: [
+                    {
+                        question: "Qual é o sinal para 'Olá' em Libras?",
+                        options: ["Bater palmas", "Acenar com a mão", "Levantar o polegar", "Fazer sinal de OK"],
+                        correct: 1
+                    },
+                    {
+                        question: "Como se representa a letra 'A' em Libras?",
+                        options: ["Mão aberta", "Punho fechado", "Indicador apontando", "Mão em forma de L"],
+                        correct: 1
+                    },
+                    {
+                        question: "Qual gesto representa 'Obrigado' em Libras?",
+                        options: ["Mão no peito e movimento para frente", "Acenar com a mão", "Bater palmas", "Levantar ambos os polegares"],
+                        correct: 0
+                    },
+                    {
+                        question: "Como se faz o sinal para 'Água' em Libras?",
+                        options: ["Movimento de beber", "Movimento de nadar", "Levar o dedo indicador à boca", "Movimento de chuva"],
+                        correct: 2
+                    },
+                    {
+                        question: "Qual é o sinal para 'Bom dia' em Libras?",
+                        options: ["Mão do queixo para frente", "Mão horizontal no peito", "Mão do queixo para baixo", "Acenar com a mão"],
+                        correct: 0
+                    }
+                ]
+            },
+            guess: {
+                title: "Adivinhe o Sinal",
+                questions: [
+                    {
+                        sign: "👋",
+                        options: ["Olá", "Adeus", "Por favor", "Obrigado"],
+                        correct: 0
+                    },
+                    {
+                        sign: "✊",
+                        options: ["Letra A", "Letra B", "Letra C", "Letra D"],
+                        correct: 0
+                    },
+                    {
+                        sign: "✋",
+                        options: ["Letra A", "Letra B", "Letra C", "Letra D"],
+                        correct: 1
+                    },
+                    {
+                        sign: "👨",
+                        options: ["Mãe", "Pai", "Irmão", "Avô"],
+                        correct: 1
+                    },
+                    {
+                        sign: "👩",
+                        options: ["Mãe", "Pai", "Irmã", "Avó"],
+                        correct: 0
+                    }
+                ]
+            },
+            memory: {
+                title: "Memória de Sinais",
+                pairs: [
+                    { sign: '👋', word: 'Olá' },
+                    { sign: '✊', word: 'Letra A' },
+                    { sign: '✋', word: 'Letra B' },
+                    { sign: '👨', word: 'Pai' },
+                    { sign: '👩', word: 'Mãe' },
+                    { sign: '🔴', word: 'Vermelho' }
+                ]
+            }
+        };
+        
+        // Inicializar jogo
+        document.querySelectorAll('[data-game]').forEach(button => {
+            button.addEventListener('click', function() {
+                const gameType = this.getAttribute('data-game');
+                startGame(gameType);
+            });
+        });
+        
+        function startGame(gameType) {
+            currentGame = gameType;
+            score = 0;
+            currentQuestion = 0;
+            
+            // Mostrar área de jogo
+            document.getElementById('game-area').style.display = 'block';
+            document.getElementById('game-title').textContent = games[gameType].title;
+            document.getElementById('score').textContent = score;
+            document.getElementById('question-count').textContent = currentQuestion + 1;
+            
+            if (gameType === 'memory') {
+                document.getElementById('total-questions').textContent = games[gameType].pairs.length;
+                document.getElementById('game-progress').style.width = '0%';
+                startMemoryGame();
+            } else {
+                document.getElementById('total-questions').textContent = games[gameType].questions.length;
+                document.getElementById('game-progress').style.width = '0%';
+                showQuestion();
+            }
+            
+            // Rolar para a área de jogo
+            document.getElementById('game-area').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function showQuestion() {
+            const gameContent = document.getElementById('game-content');
+            const questionData = games[currentGame].questions[currentQuestion];
+            const nextBtn = document.getElementById('next-btn');
+            const feedback = document.getElementById('game-feedback');
+            
+            // Resetar elementos
+            nextBtn.style.display = 'none';
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            selectedOption = null;
+            
+            // Atualizar contadores
+            document.getElementById('question-count').textContent = currentQuestion + 1;
+            document.getElementById('game-progress').style.width = `${((currentQuestion) / games[currentGame].questions.length) * 100}%`;
+            
+            // Construir conteúdo da pergunta baseado no tipo de jogo
+            if (currentGame === 'quiz') {
+                gameContent.innerHTML = `
+                    <h3>${questionData.question}</h3>
+                    <div class="game-options">
+                        ${questionData.options.map((option, index) => `
+                            <div class="game-option" data-index="${index}">${option}</div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (currentGame === 'guess') {
+                gameContent.innerHTML = `
+                    <div class="sign-display">${questionData.sign}</div>
+                    <h3>Qual palavra este sinal representa?</h3>
+                    <div class="game-options">
+                        ${questionData.options.map((option, index) => `
+                            <div class="game-option" data-index="${index}">${option}</div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // Adicionar eventos às opções
+            document.querySelectorAll('.game-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remover seleção anterior
+                    document.querySelectorAll('.game-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Selecionar nova opção
+                    this.classList.add('selected');
+                    selectedOption = parseInt(this.getAttribute('data-index'));
+                    
+                    // Verificar resposta
+                    checkAnswer();
+                });
+            });
+        }
+        
+        function checkAnswer() {
+            const questionData = games[currentGame].questions[currentQuestion];
+            const feedback = document.getElementById('game-feedback');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (selectedOption === questionData.correct) {
+                feedback.textContent = 'Resposta correta!';
+                feedback.className = 'feedback correct';
+                score++;
+                document.getElementById('score').textContent = score;
+            } else {
+                feedback.textContent = `Resposta incorreta. A resposta correta é: ${questionData.options[questionData.correct]}`;
+                feedback.className = 'feedback incorrect';
+                
+                // Destacar a resposta correta
+                document.querySelectorAll('.game-option').forEach(option => {
+                    if (parseInt(option.getAttribute('data-index')) === questionData.correct) {
+                        option.classList.add('selected');
+                    }
+                });
+            }
+            
+            nextBtn.style.display = 'block';
+        }
+        
+        // Próxima pergunta
+        document.getElementById('next-btn').addEventListener('click', function() {
+            currentQuestion++;
+            
+            if (currentQuestion < games[currentGame].questions.length) {
+                showQuestion();
+            } else {
+                // Fim do jogo
+                endGame();
+            }
+        });
+        
+        function endGame() {
+            const gameContent = document.getElementById('game-content');
+            const nextBtn = document.getElementById('next-btn');
+            const feedback = document.getElementById('game-feedback');
+            
+            // Atualizar barra de progresso
+            document.getElementById('game-progress').style.width = '100%';
+            
+            // Mostrar resultado final
+            gameContent.innerHTML = `
+                <h3>Fim do Jogo!</h3>
+                <p>Sua pontuação final: ${score} de ${games[currentGame].questions.length}</p>
+                <p>${score === games[currentGame].questions.length ? 'Parabéns! Você acertou todas!' : 
+                    score >= games[currentGame].questions.length / 2 ? 'Bom trabalho! Continue praticando!' : 
+                    'Não desanime! Pratique mais e tente novamente!'}</p>
+            `;
+            
+            nextBtn.style.display = 'none';
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            
+            // Botão para jogar novamente
+            const playAgainBtn = document.createElement('button');
+            playAgainBtn.className = 'btn';
+            playAgainBtn.textContent = 'Jogar Novamente';
+            playAgainBtn.addEventListener('click', () => startGame(currentGame));
+            gameContent.appendChild(playAgainBtn);
+        }
+        
+        // Jogo da Memória
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let memoryMoves = 0;
+        let canFlip = true;
+        
+        function startMemoryGame() {
+            const gameContent = document.getElementById('game-content');
+            const nextBtn = document.getElementById('next-btn');
+            const feedback = document.getElementById('game-feedback');
+            
+            // Resetar elementos
+            nextBtn.style.display = 'none';
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            
+            // Resetar variáveis do jogo
+            memoryCards = [];
+            flippedCards = [];
+            matchedPairs = 0;
+            memoryMoves = 0;
+            canFlip = true;
+            
+            // Criar pares de cartas
+            const pairs = [...games.memory.pairs, ...games.memory.pairs];
+            
+            // Embaralhar as cartas
+            shuffleArray(pairs);
+            
+            // Criar o grid de memória
+            gameContent.innerHTML = `
+                <div class="memory-stats">
+                    <div>Movimentos: <span id="memory-moves">0</span></div>
+                    <div>Pares: <span id="memory-pairs">0</span>/6</div>
+                </div>
+                <div class="memory-grid" id="memory-grid"></div>
+            `;
+            
+            // Adicionar cartas ao grid
+            const memoryGrid = document.getElementById('memory-grid');
+            pairs.forEach((pair, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.dataset.sign = pair.sign;
+                card.dataset.word = pair.word;
+                
+                card.innerHTML = `
+                    <div class="front">?</div>
+                    <div class="back">${pair.sign}</div>
+                `;
+                
+                card.addEventListener('click', flipCard);
+                memoryGrid.appendChild(card);
+                memoryCards.push(card);
+            });
+            
+            // Atualizar estatísticas
+            document.getElementById('memory-moves').textContent = memoryMoves;
+            document.getElementById('memory-pairs').textContent = matchedPairs;
+        }
+        
+        function flipCard() {
+            if (!canFlip) return;
+            if (this.classList.contains('flipped') || this.classList.contains('matched')) return;
+            if (flippedCards.length >= 2) return;
+            
+            this.classList.add('flipped');
+            flippedCards.push(this);
+            
+            if (flippedCards.length === 2) {
+                memoryMoves++;
+                document.getElementById('memory-moves').textContent = memoryMoves;
+                checkMemoryMatch();
+            }
+        }
+        
+        function checkMemoryMatch() {
+            canFlip = false;
+            
+            const card1 = flippedCards[0];
+            const card2 = flippedCards[1];
+            
+            if (card1.dataset.sign === card2.dataset.sign) {
+                // Par encontrado
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                document.getElementById('memory-pairs').textContent = matchedPairs;
+                
+                flippedCards = [];
+                canFlip = true;
+                
+                // Verificar se o jogo terminou
+                if (matchedPairs === games.memory.pairs.length) {
+                    setTimeout(endMemoryGame, 500);
+                }
+            } else {
+                // Par não encontrado, virar as cartas de volta
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    flippedCards = [];
+                    canFlip = true;
+                }, 1000);
+            }
+        }
+        
+        function endMemoryGame() {
+            const gameContent = document.getElementById('game-content');
+            const nextBtn = document.getElementById('next-btn');
+            const feedback = document.getElementById('game-feedback');
+            
+            // Atualizar barra de progresso
+            document.getElementById('game-progress').style.width = '100%';
+            
+            // Mostrar resultado final
+            gameContent.innerHTML = `
+                <h3>Parabéns! Você completou o jogo da memória!</h3>
+                <p>Total de movimentos: ${memoryMoves}</p>
+                <p>${memoryMoves <= 12 ? 'Excelente! Sua memória é incrível!' : 
+                    memoryMoves <= 18 ? 'Muito bom! Continue praticando!' : 
+                    'Bom trabalho! Quanto mais praticar, melhor ficará!'}</p>
+            `;
+            
+            nextBtn.style.display = 'none';
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            
+            // Botão para jogar novamente
+            const playAgainBtn = document.createElement('button');
+            playAgainBtn.className = 'btn';
+            playAgainBtn.textContent = 'Jogar Novamente';
+            playAgainBtn.addEventListener('click', () => startGame('memory'));
+            gameContent.appendChild(playAgainBtn);
+        }
+        
+        // Função para embaralhar array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar alfabeto com a letra A
+            showSign('A');
+        });
+    </script>
+</body>
+</html>
